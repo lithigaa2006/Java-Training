@@ -1,0 +1,78 @@
+Leet Code Problem
+66.Plus One
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int n = digits.length;
+
+        for (int i = n - 1; i >= 0; i--) {
+            digits[i]++;
+
+            if (digits[i] == 10) {
+                digits[i] = 0;
+            } else {
+                return digits;
+            }
+        }
+
+        int[] newDigits = new int[n + 1];
+
+        newDigits[0] = 1;
+
+        return newDigits;
+    }
+}
+73.Set Matrix
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+
+        boolean zeroinFirstCol = false;
+
+        // STEP 1: Find all zeros and mark their row & column
+        for (int row = 0; row < matrix.length; row++) {
+
+            // Remember if first column originally has a zero
+            if (matrix[row][0] == 0)
+                zeroinFirstCol = true;
+
+            // Check remaining columns
+            for (int col = 1; col < matrix[0].length; col++) {
+
+                if (matrix[row][col] == 0) {
+
+                    // Mark this row
+                    matrix[row][0] = 0;
+
+                    // Mark this column
+                    matrix[0][col] = 0;
+                }
+            }
+        }
+
+        // STEP 2: Read the markers and make cells zero
+        for (int row = 1; row < matrix.length; row++) {
+            for (int col = 1; col < matrix[0].length; col++) {
+
+                if (matrix[row][0] == 0 || matrix[0][col] == 0) {
+                    matrix[row][col] = 0;
+                }
+
+            }
+        }
+
+        // STEP 3: If first row was marked, make entire first row zero
+        if (matrix[0][0] == 0) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                matrix[0][col] = 0;
+            }
+        }
+
+        // STEP 4: If first column originally had a zero, make it zero
+        if (zeroinFirstCol) {
+            for (int row = 0; row < matrix.length; row++) {
+                matrix[row][0] = 0;
+            }
+        }
+    }
+}
